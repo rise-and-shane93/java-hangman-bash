@@ -4,15 +4,15 @@ public class Hangman {
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
         boolean isCorrect = true;
-        String[] theWords = {"HELLO", "WORLD"};
+        String[] theWords = {"HELLO", "WORLLD"};
         printGameBoard();
 
         String randomWord = getRandomWord(theWords);
         RandomWord theRandomWordObj = new RandomWord(randomWord);
         System.out.println(theRandomWordObj.randomWord);
-        theRandomWordObj.displaySpaces(randomWord);
+        theRandomWordObj.displaySpaces(randomWord, true);
         theRandomWordObj.displayUsedLetters();
-        theRandomWordObj.playGame(theRandomWordObj.numLettersToSolve, input, isCorrect, theRandomWordObj.randomWord);
+        theRandomWordObj.playGame(theRandomWordObj.numLettersToSolve, theRandomWordObj.numGuesses ,input, isCorrect, theRandomWordObj.randomWord);
     }
 
     public static void printGameBoard() {
