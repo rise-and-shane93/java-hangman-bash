@@ -9,9 +9,10 @@ public class Hangman {
 
         String randomWord = getRandomWord(theWords);
         RandomWord theRandomWordObj = new RandomWord(randomWord);
+        System.out.println(theRandomWordObj.randomWord);
         theRandomWordObj.displaySpaces(randomWord);
         theRandomWordObj.displayUsedLetters();
-        theRandomWordObj.playGame(theRandomWordObj.numLettersToSolve, input, isCorrect);
+        theRandomWordObj.playGame(theRandomWordObj.numLettersToSolve, input, isCorrect, theRandomWordObj.randomWord);
     }
 
     public static void printGameBoard() {

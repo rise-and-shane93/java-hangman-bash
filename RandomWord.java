@@ -14,7 +14,7 @@ public class RandomWord {
         this.numGuesses = 0;
     }
 
-    public void playGame(int numLettersToSolve, Scanner theScanner, boolean isCorrect) {
+    public void playGame(int numLettersToSolve, Scanner theScanner, boolean isCorrect, String theWord) {
         if (numLettersToSolve == 0) {
             // display congrats message, non-base case
             return;
@@ -25,18 +25,38 @@ public class RandomWord {
         } else {
             // play the game, non-base case
             // if ()
+
+            // get the letter
             System.out.print("Pick one letter from A-Z. No numbers, spaces, nor special characters: ");
             String theLetter = theScanner.next().toUpperCase();
-            boolean checkIfLetterIsValid = letterValidity(theLetter);
+
             // check for letter validity
+            boolean checkIfLetterIsValid = letterValidity(theLetter);
             while (!checkIfLetterIsValid) {
                 System.out.print("Pick one letter from A-Z. No numbers, spaces, nor special characters: ");
                 theLetter = theScanner.next().toUpperCase();
                 checkIfLetterIsValid = letterValidity(theLetter);
             }
-            System.out.print("Your letter is: " + theLetter);
-            System.out.println();
+            
+            // check if user guessed correctly
+            boolean isGuessCorrect = checkLetterGuess(theLetter, theWord);
+
+
         }
+    }
+
+    public boolean checkLetterGuess(String theLetter, String theWord) {
+        boolean result = true;
+
+        if (theWord.contains(theLetter)) {
+            System.out.println("Correct");
+            result = true;
+        } else {
+            System.out.println("Incorrect");
+            result = false;
+        }
+
+        return result;
     }
 
     public boolean letterValidity(String theLetter) {
