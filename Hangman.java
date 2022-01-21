@@ -1,5 +1,9 @@
+import java.util.Scanner;
+
 public class Hangman {
     public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
+        boolean isCorrect = true;
         String[] theWords = {"HELLO", "WORLD"};
         printGameBoard();
 
@@ -7,7 +11,7 @@ public class Hangman {
         RandomWord theRandomWordObj = new RandomWord(randomWord);
         theRandomWordObj.displaySpaces(randomWord);
         theRandomWordObj.displayUsedLetters();
-        // theRandomWordObj.playGame(theRandomWordObj.numLettersToSolve);
+        theRandomWordObj.playGame(theRandomWordObj.numLettersToSolve, input, isCorrect);
     }
 
     public static void printGameBoard() {
