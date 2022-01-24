@@ -14,6 +14,7 @@ public class RandomWord {
         this.randomWord = randomWord;
         this.numLettersToSolve = randomWord.length();
         this.numGuesses = 0;
+        this.indexesOfSolvedLettersStr = "";
     }
 
     public void playGame(int numLettersToSolve, int numGuesses, Scanner theScanner, boolean isCorrect, String theWord) {
@@ -50,7 +51,7 @@ public class RandomWord {
                 int currNumLettersToSolve = numLettersToSolve;
                 int numDuplicateLetters = getDuplicateLetters(theWord, theLetter);
                 displaySpaces(theWord, false);
-                playGame(numLettersToSolve - 1, numGuesses, theScanner, isCorrect, theWord);
+                playGame(numLettersToSolve - numDuplicateLetters, numGuesses, theScanner, isCorrect, theWord);
             } else {
                 System.out.println("incorrect");
                 // display a body part
@@ -83,7 +84,7 @@ public class RandomWord {
             }
         }
 
-        indexesOfSolvedLettersStr = theSolvedIndecesStr;
+        indexesOfSolvedLettersStr += theSolvedIndecesStr;
 
         return res;
     }
