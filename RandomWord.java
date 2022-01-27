@@ -17,7 +17,9 @@ public class RandomWord {
         this.indexesOfSolvedLettersStr = "";
     }
 
-    public void playGame(int numLettersToSolve, int numGuesses, Scanner theScanner, boolean isCorrect, String theWord) {
+    public void playGame(int numLettersToSolve, int numGuesses, Scanner theScanner, boolean isCorrect, String theWord, UsedLetters theUsedLetters) {
+        // UsedLetters theUsedLetters = new UsedLetters();
+
         if (numLettersToSolve == 0) {
             // display congrats message, non-base case
             System.out.println("You win!");
@@ -50,12 +52,16 @@ public class RandomWord {
                 // figure out how many letters to reveal
                 int currNumLettersToSolve = numLettersToSolve;
                 int numDuplicateLetters = getDuplicateLetters(theWord, theLetter);
+                theUsedLetters.addToUsedLetters(theUsedLetters.usedLetters, theLetter);
+                theUsedLetters.displayUsedLetters(theUsedLetters.usedLetters);
                 displaySpaces(theWord, false);
-                playGame(numLettersToSolve - numDuplicateLetters, numGuesses, theScanner, isCorrect, theWord);
+                playGame(numLettersToSolve - numDuplicateLetters, numGuesses, theScanner, isCorrect, theWord, theUsedLetters);
             } else {
                 System.out.println("incorrect");
+                theUsedLetters.addToUsedLetters(theUsedLetters.usedLetters, theLetter);
+                theUsedLetters.displayUsedLetters(theUsedLetters.usedLetters);
                 // display a body part
-                playGame(numLettersToSolve, numGuesses + 1, theScanner, isCorrect, theWord);
+                playGame(numLettersToSolve, numGuesses + 1, theScanner, isCorrect, theWord, theUsedLetters);
             }
 
         }
@@ -164,8 +170,9 @@ public class RandomWord {
 
     public void displayUsedLetters() {
         System.out.println();
-        System.out.print("Used Letters:");
+        System.out.print("Used Letters: ");
         // Function to display used letters will go here.
+        // theUsedLetters.displayUsedLetters();
         System.out.println();
         System.out.println();
     }

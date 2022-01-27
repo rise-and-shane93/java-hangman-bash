@@ -9,10 +9,11 @@ public class Hangman {
 
         String randomWord = getRandomWord(theWords);
         RandomWord theRandomWordObj = new RandomWord(randomWord);
+        UsedLetters theUsedLetters = new UsedLetters();
         System.out.println(theRandomWordObj.randomWord);
         theRandomWordObj.displaySpaces(randomWord, true);
-        theRandomWordObj.displayUsedLetters();
-        theRandomWordObj.playGame(theRandomWordObj.numLettersToSolve, theRandomWordObj.numGuesses ,input, isCorrect, theRandomWordObj.randomWord);
+        // theRandomWordObj.displayUsedLetters();
+        theRandomWordObj.playGame(theRandomWordObj.numLettersToSolve, theRandomWordObj.numGuesses ,input, isCorrect, theRandomWordObj.randomWord, theUsedLetters);
     }
 
     public static void printGameBoard() {
