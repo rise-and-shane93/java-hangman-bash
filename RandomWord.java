@@ -17,6 +17,41 @@ public class RandomWord {
         this.indexesOfSolvedLettersStr = "";
     }
 
+    // checks if a letter does not contain numbers, spaces, nor special characters, and has not already been used
+
+    public String checkLetterValidity(UsedLetters theUsedLetters, String[] theUsedLettersArr, String theLetter) {
+        String res = "";
+
+        boolean validLetter = letterValidity(theLetter);
+        boolean isLetterUsed = checkIsUsedLetter(theUsedLettersArr, theLetter);
+
+        if (validLetter && !isLetterUsed) {
+            res = "valid";
+        } else if (!validLetter && !isLetterUsed) {
+            // res = "invalid letter";
+            res = "Pick one letter from A-Z. No numbers, spaces, nor special characters: ";
+        } else if (!validLetter && isLetterUsed) {
+            // res = "invalid letter and letter is already used";
+            res = "The letter is invalid and has already been used. Please pick another one: ";
+        } else if (validLetter && !isLetterUsed) {
+            res = "That letter is already used. Please pick another one: ";
+        }
+
+        return res;
+    }
+
+    public boolean checkIsUsedLetter(String[] theUsedLetters, String theLetter) {
+        boolean res = false;
+
+        for (int i = 0; i < theUsedLetters.length; i++) {
+            if (theUsedLetters[i].equals(theLetter)) {
+                res = true;
+            }
+        }
+
+        return res;
+    }
+
     public void playGame(int numLettersToSolve, int numGuesses, Scanner theScanner, boolean isCorrect, String theWord, UsedLetters theUsedLetters) {
         // UsedLetters theUsedLetters = new UsedLetters();
 
@@ -36,15 +71,33 @@ public class RandomWord {
             String theLetter = theScanner.next().toUpperCase();
 
             // check for letter validity
-            boolean checkIfLetterIsValid = letterValidity(theLetter);
-            while (!checkIfLetterIsValid) {
-                System.out.print("Pick one letter from A-Z. No numbers, spaces, nor special characters: ");
+            // boolean checkIfLetterIsValid = letterValidity(theLetter);
+            // while (!checkIfLetterIsValid) {
+            //     System.out.print("Pick one letter from A-Z. No numbers, spaces, nor special characters: ");
+            //     theLetter = theScanner.next().toUpperCase();
+            //     checkIfLetterIsValid = letterValidity(theLetter);
+            // }
+
+            // check if the letter is already used
+            // boolean isUsedLetter = theUsedLetters.checkIsUsedLetter(theUsedLetters.usedLetters, theLetter);
+            // while (!isUsedLetter) {
+            //     System.out.print("You have already used this letter. Please pick another one.");
+            //     theLetter = theScanner.next().toUpperCase();
+            //     isUsedLetter = theUsedLetters.checkIsUsedLetter(theUsedLetters.usedLetters, theLetter);
+            // }
+
+            // check if the letter is valid and has not already been used
+            String result = checkLetterValidity(theUsedLetters, theUsedLetters.usedLetters, theLetter);
+            while (!result.equals("valid")) {
+                System.out.print(result);
                 theLetter = theScanner.next().toUpperCase();
-                checkIfLetterIsValid = letterValidity(theLetter);
+                result = checkLetterValidity(theUsedLetters, theUsedLetters.usedLetters, theLetter);
             }
+            
             
             // check if user guessed correctly
             boolean isGuessCorrect = checkLetterGuess(theLetter, theWord);
+            
             if (isGuessCorrect) {
                 // reveal letters
                 System.out.println("correct");

@@ -17,6 +17,19 @@ public class UsedLetters {
         }
         
         System.out.println();
+        System.out.println();
+    }
+
+    public boolean checkIsUsedLetter(String[] theUsedLetters, String theLetter) {
+        boolean res = false;
+
+        for (int i = 0; i < theUsedLetters.length; i++) {
+            if (theUsedLetters[i].equals(theLetter)) {
+                res = true;
+            }
+        }
+
+        return res;
     }
 
     public void addToUsedLetters(String[] currUsedLetters, String theNewLetter) {
