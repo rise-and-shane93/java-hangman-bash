@@ -11,7 +11,7 @@ public class Hangman {
         RandomWord theRandomWordObj = new RandomWord(randomWord);
         UsedLetters theUsedLetters = new UsedLetters();
         System.out.println(theRandomWordObj.randomWord);
-        theRandomWordObj.displaySpaces(randomWord, true);
+        theRandomWordObj.displaySpaces(randomWord, true, randomWord.length());
         // theRandomWordObj.displayUsedLetters();
         theRandomWordObj.playGame(theRandomWordObj.numLettersToSolve, theRandomWordObj.numGuesses ,input, isCorrect, theRandomWordObj.randomWord, theUsedLetters);
     }

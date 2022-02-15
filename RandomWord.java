@@ -33,7 +33,7 @@ public class RandomWord {
         } else if (!validLetter && isLetterUsed) {
             // res = "invalid letter and letter is already used";
             res = "The letter is invalid and has already been used. Please pick another one: ";
-        } else if (validLetter && !isLetterUsed) {
+        } else if (validLetter && isLetterUsed) {
             res = "That letter is already used. Please pick another one: ";
         }
 
@@ -59,7 +59,7 @@ public class RandomWord {
             // display congrats message, non-base case
             System.out.println("You win!");
             return;
-        } else if (numGuesses == 3) {
+        } else if (numGuesses == 6) {
             // display message saying you lost, non-base case
             System.out.println("You lost, the word was " + theWord);
             return;
@@ -107,13 +107,20 @@ public class RandomWord {
                 int numDuplicateLetters = getDuplicateLetters(theWord, theLetter);
                 theUsedLetters.addToUsedLetters(theUsedLetters.usedLetters, theLetter);
                 theUsedLetters.displayUsedLetters(theUsedLetters.usedLetters);
-                displaySpaces(theWord, false);
+                displaySpaces(theWord, false, numLettersToSolve);
                 playGame(numLettersToSolve - numDuplicateLetters, numGuesses, theScanner, isCorrect, theWord, theUsedLetters);
             } else {
                 System.out.println("incorrect");
                 theUsedLetters.addToUsedLetters(theUsedLetters.usedLetters, theLetter);
                 theUsedLetters.displayUsedLetters(theUsedLetters.usedLetters);
                 // display a body part
+                printGameBoard(numGuesses + 1);
+                // if (numGuesses == 0) {
+                //     displaySpaces(theWord, true);
+                // } else {
+                //     displaySpaces(theWord, false, numLettersToSolve);
+                // }
+                displaySpaces(theWord, false, numLettersToSolve);
                 playGame(numLettersToSolve, numGuesses + 1, theScanner, isCorrect, theWord, theUsedLetters);
             }
 
@@ -177,7 +184,7 @@ public class RandomWord {
         return result;
     }
 
-    public void displaySpaces(String randomWord, boolean startOfGame) {
+    public void displaySpaces(String randomWord, boolean startOfGame, int numLettersToSolve) {
         String[] randomWordAsArr = randomWord.split("");
         // String[] indexesOfSolvedLettersArr = "";
 
@@ -188,29 +195,34 @@ public class RandomWord {
             }
 
         } else {
+            if (numLettersToSolve != randomWord.length()) {
+                String[] indexesOfSolvedLettersArr = indexesOfSolvedLettersStr.split(",");
 
-            String[] indexesOfSolvedLettersArr = indexesOfSolvedLettersStr.split(",");
-
-            indexesOfSolvedLetters = new int[indexesOfSolvedLettersArr.length];
-
-            for (int h = 0; h < indexesOfSolvedLetters.length; h++) {
-                indexesOfSolvedLetters[h] = Integer.parseInt(indexesOfSolvedLettersArr[h]);
-            }
-
-            for (int i = 0; i < randomWord.length(); i++) {
-                boolean outputLetter = false;
-                String theLetterToOutput = "";
-
-                for (int j = 0; j < indexesOfSolvedLetters.length; j++) {
-                    if (i == indexesOfSolvedLetters[j]) {
-                        outputLetter = true;
-                        theLetterToOutput = randomWordAsArr[indexesOfSolvedLetters[j]];
+                indexesOfSolvedLetters = new int[indexesOfSolvedLettersArr.length];
+    
+                for (int h = 0; h < indexesOfSolvedLetters.length; h++) {
+                    indexesOfSolvedLetters[h] = Integer.parseInt(indexesOfSolvedLettersArr[h]);
+                }
+    
+                for (int i = 0; i < randomWord.length(); i++) {
+                    boolean outputLetter = false;
+                    String theLetterToOutput = "";
+    
+                    for (int j = 0; j < indexesOfSolvedLetters.length; j++) {
+                        if (i == indexesOfSolvedLetters[j]) {
+                            outputLetter = true;
+                            theLetterToOutput = randomWordAsArr[indexesOfSolvedLetters[j]];
+                        }
+                    }
+    
+                    if (outputLetter) {
+                        System.out.print("_" + theLetterToOutput + "_ ");
+                    } else {
+                        System.out.print("___ ");
                     }
                 }
-
-                if (outputLetter) {
-                    System.out.print("_" + theLetterToOutput + "_ ");
-                } else {
+            } else {
+                for (int i = 0; i < randomWord.length(); i++) {
                     System.out.print("___ ");
                 }
             }
@@ -227,6 +239,24 @@ public class RandomWord {
         // Function to display used letters will go here.
         // theUsedLetters.displayUsedLetters();
         System.out.println();
+        System.out.println();
+    }
+
+    public static void printGameBoard(int numGuesses) {
+        if (numGuesses == 1) { // reveal head
+            System.out.println("\t ________\n\t|\t |\n\t|\t |\n\t|\t O\n\t|\t   \n\t|\t \n\t|         \n\t|\n\t|\n  ______|______");
+        } else if (numGuesses == 2) { // reveal torso
+            System.out.println("\t ________\n\t|\t |\n\t|\t |\n\t|\t O\n\t|\t |  \n\t|\t |\n\t|         \n\t|\n\t|\n  ______|______");
+        } else if (numGuesses == 3) { // reveal right leg
+            System.out.println("\t ________\n\t|\t |\n\t|\t |\n\t|\t O\n\t|\t |  \n\t|\t |\n\t|         \\\n\t|\n\t|\n  ______|______");
+        } else if (numGuesses == 4) { // reveal left leg
+            System.out.println("\t ________\n\t|\t |\n\t|\t |\n\t|\t O\n\t|\t |  \n\t|\t |\n\t|       /\\\n\t|\n\t|\n  ______|______");
+        } else if (numGuesses == 5) { // reveal left arm
+            System.out.println("\t ________\n\t|\t |\n\t|\t |\n\t|\t O\n\t|\t_|  \n\t|\t |\n\t|       /\\\n\t|\n\t|\n  ______|______");
+        } else if (numGuesses == 6) { // reveal right arm, game over
+            System.out.println("\t ________\n\t|\t |\n\t|\t |\n\t|\t O\n\t|\t_|_\n\t|\t |\n\t|       /\\\n\t|\n\t|\n  ______|______");
+        }
+
         System.out.println();
     }
 }
