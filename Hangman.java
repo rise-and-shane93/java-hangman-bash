@@ -4,13 +4,13 @@ public class Hangman {
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
         boolean isCorrect = true;
-        String[] theWords = {"HELLO", "WORLLD"};
+        String[] theWords = {"HELLO", "WORLD", "HOUSE", "COMPUTER", "BEDROOM", "MONITOR", "BICYCLE", "PORCH", "GASOLINE", "SMARTPHONE", "HOMEWORK", "SNOW", "JAVA", "COLLEGE", "UNIVERSITY", "TELEVISION", "COFFEE", "KEYBOARD", "SPEAKER"};
         printGameBoard();
 
         String randomWord = getRandomWord(theWords);
         RandomWord theRandomWordObj = new RandomWord(randomWord);
         UsedLetters theUsedLetters = new UsedLetters();
-        System.out.println(theRandomWordObj.randomWord);
+        // System.out.println(theRandomWordObj.randomWord);
         theRandomWordObj.displaySpaces(randomWord, true, randomWord.length());
         // theRandomWordObj.displayUsedLetters();
         theRandomWordObj.playGame(theRandomWordObj.numLettersToSolve, theRandomWordObj.numGuesses ,input, isCorrect, theRandomWordObj.randomWord, theUsedLetters);

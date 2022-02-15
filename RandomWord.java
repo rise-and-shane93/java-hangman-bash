@@ -107,7 +107,7 @@ public class RandomWord {
                 int numDuplicateLetters = getDuplicateLetters(theWord, theLetter);
                 theUsedLetters.addToUsedLetters(theUsedLetters.usedLetters, theLetter);
                 theUsedLetters.displayUsedLetters(theUsedLetters.usedLetters);
-                displaySpaces(theWord, false, numLettersToSolve);
+                displaySpaces(theWord, false, numLettersToSolve - numDuplicateLetters);
                 playGame(numLettersToSolve - numDuplicateLetters, numGuesses, theScanner, isCorrect, theWord, theUsedLetters);
             } else {
                 System.out.println("incorrect");
